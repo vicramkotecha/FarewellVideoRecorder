@@ -1,0 +1,36 @@
+body {
+  background-color: coral;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.link-color {
+  color: lightgrey;
+  text-decoration: none;
+  
+}
+
+.link-color:hover {
+  cursor: pointer;
+  color: #DA70D6; 
+  }
+
+.custom-container {
+  margin-top: 100px;
+  margin-left: 100px;
+  margin-bottom: 100px;
+  text-align: left;
+  color: #303030;
+}
+
+.error-container {
+  background-color: red;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+h1, h3, h4, h6 {
+  color: #DA70D6; 
+}
