@@ -36,8 +36,7 @@ export default class CameraPage extends React.Component {
         }
     }
 
-    flipCamera() {
-        console.log('test');
+    async flipCamera() {
         this.setState(
             {
             type: this.state.type === Camera.Constants.Type.back
@@ -45,6 +44,7 @@ export default class CameraPage extends React.Component {
             : Camera.Constants.Type.back
             }
         );
+        await this.getCameraRatio();
     }
 
     async getCameraRatio() {
