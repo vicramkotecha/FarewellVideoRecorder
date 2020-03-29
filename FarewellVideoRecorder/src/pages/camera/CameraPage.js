@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Dimensions, ColorPropType } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
+import * as FileSystem from 'expo-file-system';
+import { Buffer } from 'buffer'
 
 export default class CameraPage extends React.Component {
     camera = null;
@@ -19,19 +21,57 @@ export default class CameraPage extends React.Component {
         const camera = await Permissions.askAsync(Permissions.CAMERA);
         const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
         const hasCameraPermission = (camera.status === 'granted' && audio.status === 'granted');
-
-        this.setState({ hasCameraPermission });
+        this.setState({hasCameraPermission: hasCameraPermission} );
     };
 
     async record() {
+        if(!this.state.hasCameraPermission) {
+            await componentDidMount();
+        }
         if (this.camera && !this.state.recording) {
             this.setState({
                 recording: !this.state.recording
             });
             let video = await this.camera.recordAsync({maxDuration:2});
-            console.log(video);
             this.setState({
                 recording: false
+            });
+            let uri = video.uri;
+            console.log("uri="+uri.replace('file://',''));
+            let data = await FileSystem.readAsStringAsync(uri, {encoding: FileSystem.EncodingType.Base64});
+            const buffer = Buffer.from(data, 'base64')
+            console.log("data="+data.length)
+            fetch('****/dev/videos/upload', {
+                method: 'POST',
+            })
+            .then((response) => response.json())
+            //If response is in json then in success
+            .then((responseJson) => {
+                //Success 
+                console.log(responseJson);
+                let url = responseJson['upload_url'];
+                console.log('url='+url);
+                fetch(url, {
+                    method:'PUT',
+                    headers: {
+                        'Content-Type': 'video/mp4; charset=utf-8'
+                    },
+                    body: buffer
+                })
+                .then((responseData) => {
+                    for(var property in responseData) {
+                        console.log(property + "=" + responseData[property]);
+                    }
+                })
+                .catch((error) => {
+                    //Error 
+                    console.error(error);
+                });
+            })
+            //If response is not in json then in error
+            .catch((error) => {
+                //Error 
+                console.error(error);
             });
         }
     }
@@ -71,7 +111,6 @@ export default class CameraPage extends React.Component {
                 bestRatio = thisRatio
             }
         }
-        
         // adjust viewport to reflect that ratio - trimming height or width if needed
         let cameraWidth = windowWidth;
         let cameraHeight = windowWidth * bestHeight / bestWidth;
@@ -121,7 +160,7 @@ export default class CameraPage extends React.Component {
                             alignItems: 'center',
                         }}
                         onPress={this.record.bind(this)}>
-                        <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> {this.state.recording?'Recording':'Record'} </Text>
+                        <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> {this.state.recording?'Recording Now':'Press to Record'} </Text>
                         </TouchableOpacity>
                     </View>
                 </Camera>
