@@ -130,3 +130,5 @@ dmypy.json
 
 # Ignore all directories called node_modules in current folder and any subfolders
 node_modules/
+
+aws_exports.js

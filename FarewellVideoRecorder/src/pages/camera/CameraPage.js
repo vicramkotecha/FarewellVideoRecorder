@@ -41,8 +41,11 @@ export default class CameraPage extends React.Component {
             let data = await FileSystem.readAsStringAsync(uri, {encoding: FileSystem.EncodingType.Base64});
             const buffer = Buffer.from(data, 'base64')
             console.log("data="+data.length)
-            fetch('****/dev/videos/upload', {
+            fetch('https://4c6cbdd1pc.execute-api.eu-west-2.amazonaws.com/v1/videos/upload', {
                 method: 'POST',
+                headers: {
+                    Authorization: this.props.token
+                }
             })
             .then((response) => response.json())
             //If response is in json then in success

@@ -8,6 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/netinfo": "4.6.0",
+    "aws-amplify": "2.2.7",
+    "aws-amplify-react-native": "3.2.2",
     "base-64": "0.1.0",
     "buffer": "5.5.0",
     "expo": "~36.0.0",
