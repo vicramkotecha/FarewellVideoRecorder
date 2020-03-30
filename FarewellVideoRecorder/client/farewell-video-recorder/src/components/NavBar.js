@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     link: {
-        color: 'white'
+        color: 'white',
+        '&:hover': {
+            color: 'white'
+        }
     }
   }));
 
