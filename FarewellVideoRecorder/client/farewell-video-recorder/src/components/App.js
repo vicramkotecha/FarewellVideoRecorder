@@ -3,15 +3,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
 } from "react-router-dom";
-import AppBar from '@material-ui/core/AppBar';
-import Video from "./Video"
 import VideoListContainer from "../containers/VideoListContainer";
 import About from './About'
 import NavBar from './NavBar'
-
-
 
 const App = () => {
     return (
@@ -28,7 +23,7 @@ const App = () => {
                 </Switch>
             </div>
         </Router>
-        );
+    );
 };
 
 export default App;
