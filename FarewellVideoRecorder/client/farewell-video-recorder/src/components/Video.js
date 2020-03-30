@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 });
 
   
-const Video = ({name = "Unknown", url, location = "Unknown", notes = "No notes."}) => {
+const Video = ({name = "Unknown", url, location, notes}) => {
     const classes = useStyles();
     return (
         <Card className={classes.root}>
@@ -29,15 +29,22 @@ const Video = ({name = "Unknown", url, location = "Unknown", notes = "No notes."
                 <Typography gutterBottom variant="h5" component="h2">
                     Name: {name}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    Location: {location}
-                </Typography>
-                <Typography variant="h6" component="h5">
-                    Notes
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                   {notes}
-                </Typography>
+                {location && 
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        Location: {location}
+                    </Typography>
+                }
+                {notes && 
+                    <>
+                        <Typography variant="h6" component="h5">
+                            Notes
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                        {notes}
+                        </Typography>
+                    </>
+                }
+                
             </CardContent>
         </Card>
     )
