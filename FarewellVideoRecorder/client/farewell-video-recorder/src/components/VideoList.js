@@ -8,6 +8,9 @@ const useStyles = makeStyles({
     row: {
         display: 'flex',
         justifyContent: 'space-between'
+    },
+    col: {
+        float: 'left'
     }
 });
 
@@ -15,15 +18,11 @@ const VideoList = (props) => {
     const classes = useStyles();
     return (
         <Container>
-            {new Array(props.videos.length).fill(0).map((_, i) => {
-                if(i % 2 === 0) return (
-                    <Row className={classes.row}>
-                        <Col className={classes.col}><VideoContainer video={props.videos[i]} /></Col>
-                        <Col className={classes.col}><VideoContainer video={props.videos[i+1]} /></Col>
-                    </Row>
-                )
-                return;
-            })}
+            <Row>
+                {props.videos.map((video) => (
+                        <Col className={classes.col}><VideoContainer video={video} /></Col>
+                ))}
+            </Row>
         </Container>
     );
 };
