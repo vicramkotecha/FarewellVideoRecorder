@@ -3,38 +3,28 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
 } from "react-router-dom";
+import AppBar from '@material-ui/core/AppBar';
 import Video from "./Video"
 import VideoListContainer from "../containers/VideoListContainer";
+import About from './About'
+import NavBar from './NavBar'
+
 
 
 const App = () => {
-    
-
     return (
         <Router>
             <div>
-                <nav>
-                <ul>
-                    <li>
-                    <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                    <Link to="/about">About</Link>
-                    </li>
-                </ul>
-                </nav>
-                <VideoListContainer />
-                {/* A <Switch> looks through its children <Route>s and
-                    renders the first one that matches the current URL. */}
+                <NavBar />
                 <Switch>
-                <Route path="/about">
-                    <h2>About</h2>
-                </Route>
-                <Route path="/">
-                    <h2>Home</h2>
-                </Route>
+                  <Route path="/about">
+                      <About />
+                  </Route>
+                  <Route path="/">
+                      <VideoListContainer />
+                  </Route>
                 </Switch>
             </div>
         </Router>
