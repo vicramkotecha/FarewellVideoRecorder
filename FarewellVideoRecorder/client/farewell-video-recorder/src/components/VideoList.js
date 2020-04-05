@@ -20,7 +20,7 @@ const VideoList = (props) => {
         <Container>
             <Row>
                 {props.videos.map((video) => (
-                        <Col className={classes.col}><VideoContainer video={video} /></Col>
+                    <Col className={classes.col}><VideoContainer video={video}/></Col>
                 ))}
             </Row>
         </Container>
